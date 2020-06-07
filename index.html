@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="left-side">
+        <h3>Get some practice</h3>
+        <p class="paragraph">Build your flashcards by using the form. You can delete flashcards from the list below.</p>
+        <input type="text" class="textInput" id="questionInput" placeholder="Question">
+        <input type="text" class="textInput" id="answerInput" placeholder="Answer">
+        <button id="addButton">Add to cards</button>
+        <p id="flashcardoverview"></p>
+    </section>
+    <section class="right-side">
+        <section class="flashcardwrapper">
+            <section class="flashcardtext">
+                <div class="questionwrapper">
+                    <p id="cardQuestion"> </p>
+                </div>
+                <div class="answerwrapper">
+                    <p id="cardAnswer"> </p>
+                </div>
+            </section>
+            <section class="flashcardbuttons">
+                <button class="flashbuttons" id="nextCard">Next card</button>
+                <button class="flashbuttons" id="showAnswer">Show answer</button>
+            </section>
+        </section>
+    </section>
+    <script src="script.js"></script>
+</body>
+
+</html>
