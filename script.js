@@ -1,66 +1,74 @@
+var flashCardsArray = JSON.parse(localStorage["flashCardsArray"]);
 var itemIdentifier = 0;
 var flashcardoverview = document.querySelector("#flashcardoverview");
 document.querySelector("#addButton").addEventListener("click", addItem);
 document.querySelector("#nextCard").addEventListener("click", showCard);
 document.querySelector("#showAnswer").addEventListener("click", showAnswer);
-var flashCardsArray = [];
-
+document.querySelector("#clearAll").addEventListener("click", clearAll);
+if (flashCardsArray === undefined) {
+    var flashCardsArray = [];
+}
+updateList();
 function addItem() {
-    //stores items in array and appends to overview panel
     var question = document.querySelector("#questionInput").value;
     var answer = document.querySelector("#answerInput").value;
-
     if (question === "" || answer === "") {
-        alert("Please fill out the fields")
+        alert("You can't create an empty card");
     } else {
-        //activeCard is used to deactive cards when removed from the overview panel
+
         var flashcard = {
             oquestion: question,
             oanswer: answer,
-            activeCard: true,
         }
-
         flashCardsArray.push(flashcard);
-        var flashcardListing = document.createElement("div");
-        flashcardListing.innerHTML = `<p class="flashcarditem">${flashcard.oquestion}</p><p class="removex" onclick="deleteCard(${itemIdentifier})">x</p>`;
-        flashcardListing.id = `flashcard${itemIdentifier}`;
-        flashcardListing.className = "flashcardlistingwrapper";
-        flashcardoverview.appendChild(flashcardListing);
-
+        updateList();
         document.querySelector("#questionInput").value = "";
         document.querySelector("#answerInput").value = "";
-
-        itemIdentifier++;
     }
 }
-//removes cards from overview and deactivates cards within array
+
+function updateList() {
+    var flashcardoverview = document.getElementById("flashcardoverview");
+    flashcardoverview.innerHTML = "";
+    localStorage["flashCardsArray"] = JSON.stringify(flashCardsArray);
+
+    for (i = 0; i < flashCardsArray.length; i++) {
+        var flashcardListing = document.createElement("div");
+        flashcardListing.innerHTML = `<p class="flashcarditem">${flashCardsArray[i].oquestion}</p><p class="removex" onclick="deleteCard(${i})">x</p>`;
+        flashcardoverview.appendChild(flashcardListing);
+    }
+}
+
 function deleteCard(cardId) {
-    document.querySelector(`#flashcard${cardId}`).style.display = "none";
-    flashCardsArray[`${cardId}`].activeCard = false;
+    flashCardsArray.splice(cardId, 1);
+    updateList();
 }
 
 function showCard() {
     var cardSelector = Math.floor(Math.random() * flashCardsArray.length);
-    //skips cards that have been deactivated
-    if (flashCardsArray[cardSelector].activeCard === false) {
-        showCard();
-    } else {
-
-        var selectedQuestion = flashCardsArray[cardSelector].oquestion;
-        var selectedAnswer = flashCardsArray[cardSelector].oanswer;
-
-        document.querySelector("#cardAnswer").style.display = "none";
-
-        document.querySelector("#cardQuestion").innerHTML = `<p class="questionbox">${selectedQuestion}</p>`;
-
-        document.querySelector("#cardAnswer").innerHTML = `<p class="answerbox">${selectedAnswer}</p>`;
-
-
-    }
+    var selectedQuestion = flashCardsArray[cardSelector].oquestion;
+    var selectedAnswer = flashCardsArray[cardSelector].oanswer;
+    document.querySelector("#cardAnswer").style.display = "none";
+    document.querySelector("#cardQuestion").innerHTML = `<p class="questionbox">${selectedQuestion}</p>`;
+    document.querySelector("#cardAnswer").innerHTML = `<p class="answerbox">${selectedAnswer}</p>`;
 }
-
 
 function showAnswer() {
     document.querySelector("#cardAnswer").style.display = "block";
 }
 
+function clearAll() {
+    if (confirm("Are you sure you want to remove all of your cards?")) {
+
+        flashCardsArray = [];
+        updateList();
+        localStorage["flashCardsArray"] = JSON.stringify(flashCardsArray);
+    }
+}
+
+document.getElementById('answerInput').onkeydown = function (event) {
+    if (event.keyCode == 13) {
+        addItem();
+        document.getElementById('questionInput').click();
+    }
+}

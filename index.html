@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards</title>
+    <title>Flashcards - Refactored</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </head>
@@ -12,11 +12,14 @@
 <body>
     <section class="left-side">
         <h3>Get some practice</h3>
-        <p class="paragraph">Build your flashcards by using the form. You can delete flashcards from the list below.</p>
+        <p class="paragraph">Build your flashcards by using the form. You can delete individual flashcards from the list
+            below.</p>
         <input type="text" class="textInput" id="questionInput" placeholder="Question">
         <input type="text" class="textInput" id="answerInput" placeholder="Answer">
         <button id="addButton">Add to cards</button>
+
         <p id="flashcardoverview"></p>
+        <button id="clearAll">Clear all cards</button>
     </section>
     <section class="right-side">
         <section class="flashcardwrapper">
