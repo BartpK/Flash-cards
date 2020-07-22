@@ -44,6 +44,17 @@ input {
     color: white;
 }
 
+#clearAll {
+    display: block;
+    width: 60%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #EB9486;
+    border: solid 1px white;
+    color: white;
+}
+
+
 .cardview {
     width: 100%;
 }
@@ -52,6 +63,7 @@ input {
     width: 80%;
     padding-left: 10px;
     margin-top: 0;
+    float: left;
 }
 
 .flashcardlistingwrapper {
@@ -61,8 +73,9 @@ input {
 }
 
 .removex {
-    color:gray;
+    color:lightslategray;
     margin-top: 0;
+    
 }
 
 .flashcardwrapper {
